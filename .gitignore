@@ -1,0 +1,4 @@
+backup/
+*.log
+thumbs.db
+.DS_Store

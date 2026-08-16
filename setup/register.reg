@@ -1,0 +1,8 @@
+Windows Registry Editor Version 5.00
+
+[HKEY_CLASSES_ROOT\cinemana-player]
+@="URL:cinemana-player Protocol"
+"URL Protocol"=""
+
+[HKEY_CLASSES_ROOT\cinemana-player\shell\open\command]
+@="wscript.exe \"C:\\Users\\Admin\\Downloads\\T1\\cinemana-potplayer\\setup\\open.vbs\" \"%1\""
