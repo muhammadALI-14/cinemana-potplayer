@@ -50,6 +50,10 @@ Brave/Chrome extension (Manifest V3) that captures video URLs from [cinemana.sha
 - **Subtitle not loading?** Check `%TEMP%\cinemana_sub.vtt` exists after clicking
 - **Protocol not working?** Re-run `setup/register.bat` as admin
 
+## Author
+
+**Muhammad ALI** — [GitHub](https://github.com/muhammadALI-14)
+
 ## License
 
 MIT

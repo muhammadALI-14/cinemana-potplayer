@@ -3,6 +3,7 @@
   "name": "Cinemana → PotPlayer",
   "version": "1.5.0",
   "description": "فتح حلقات ومشاهد Cinemana مباشرة في PotPlayer",
+  "author": "Muhammad ALI (muhammadALI-14)",
   "permissions": ["webRequest", "storage", "tabs"],
   "host_permissions": [
     "*://*.shabakaty.com/*"
