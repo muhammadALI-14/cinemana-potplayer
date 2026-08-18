@@ -17,11 +17,17 @@ if %errorlevel% neq 0 (
     exit /b 1
 )
 
-regedit /s "%~dp0register.reg"
+set "SCRIPT_DIR=%~dp0"
+set "VBS_PATH=%SCRIPT_DIR%open.vbs"
+
+reg add "HKCR\cinemana-player" /ve /t REG_SZ /d "URL:cinemana-player Protocol" /f >nul 2>&1
+reg add "HKCR\cinemana-player" /v "URL Protocol" /t REG_SZ /d "" /f >nul 2>&1
+reg add "HKCR\cinemana-player\shell\open\command" /ve /t REG_SZ /d "wscript.exe \"%VBS_PATH%\" \"%%1\"" /f >nul 2>&1
 
 echo.
 echo ============================================
 echo  DONE! Protocol registered.
+echo  Path: %VBS_PATH%
 echo ============================================
 echo.
 pause
