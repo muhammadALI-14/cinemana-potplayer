@@ -1,0 +1,14 @@
+Windows Registry Editor Version 5.00
+
+; NOTE: Do NOT use this file directly.
+; Run "register.bat" as Administrator instead.
+; It will automatically detect the correct path.
+;
+; This file is kept for reference only.
+
+[HKEY_CLASSES_ROOT\cinemana-player]
+@="URL:cinemana-player Protocol"
+"URL Protocol"=""
+
+[HKEY_CLASSES_ROOT\cinemana-player\shell\open\command]
+@="wscript.exe \"C:\\extension\\cinemana\\setup\\open.vbs\" \"%1\""
