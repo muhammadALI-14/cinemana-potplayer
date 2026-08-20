@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html dir="rtl" lang="ar">
+<head>
+<meta charset="utf-8">
+<title>سجل تشخيص إضافة Cinemana → PotPlayer</title>
+<style>
+  body { font-family: Tahoma, Arial, sans-serif; background:#0f1115; color:#e6e6e6; margin:0; padding:16px; }
+  h1 { font-size:16px; color:#7fd1ff; }
+  #bar { margin-bottom:10px; }
+  button { background:#1c2733; color:#e6e6e6; border:1px solid #2f4150; padding:6px 12px; border-radius:6px; cursor:pointer; margin-left:6px; }
+  button:hover { background:#26384a; }
+  pre { background:#000; color:#9effa0; padding:12px; border-radius:8px; height:75vh; overflow:auto; white-space:pre-wrap; word-break:break-word; font-size:12px; line-height:1.5; }
+</style>
+</head>
+<body>
+  <h1>سجل تشخيص الإضافة (CP)</h1>
+  <div id="bar">
+    <button id="refresh">تحديث</button>
+    <button id="download">تنزيل log.txt</button>
+    <button id="clear">مسح السجل</button>
+  </div>
+  <pre id="out">جارِ التحميل...</pre>
+<script src="log.js"></script>
+</body>
+</html>
