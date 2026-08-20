@@ -1,7 +1,7 @@
 Windows Registry Editor Version 5.00
 
 ; Run register.bat (auto-elevates to Admin) instead of this file.
-; It copies open.vbs to %ProgramData%\cinemana\open.vbs (fixed location)
+; It copies open.vbs to C:\ProgramData\cinemana\open.vbs (absolute fixed path)
 ; and registers that path - survives folder deletion/rename.
 
 [HKEY_CLASSES_ROOT\cinemana-player]
@@ -9,4 +9,4 @@ Windows Registry Editor Version 5.00
 "URL Protocol"=""
 
 [HKEY_CLASSES_ROOT\cinemana-player\shell\open\command]
-@="wscript.exe \"%ProgramData%\\cinemana\\open.vbs\" \"%1\""
+@="wscript.exe \"C:\\ProgramData\\cinemana\\open.vbs\" \"%1\""
