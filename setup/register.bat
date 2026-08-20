@@ -1,21 +1,13 @@
 @echo off
-echo ============================================
-echo  Cinemana -> PotPlayer Protocol Setup
-echo ============================================
-echo.
-echo  Registers cinemana-player:// protocol.
-echo  The script path is auto-detected (%%~dp0) so it works
-echo  regardless of the folder name or location.
-echo.
-echo  Right-click and "Run as administrator"!
-echo.
+:: ===== Cinemana -> PotPlayer Protocol Setup =====
+:: يرافع نفسه لـ Administrator تلقائياً (UAC) ثم يسجّل البروتوكول
+:: باستخدام %%~dp0 — يعمل بأي اسم/مكان مجلد
 
 net session >nul 2>&1
 if %%errorlevel%% neq 0 (
-    echo ERROR: Run as Administrator!
-    echo Right-click this file -> "Run as administrator"
-    pause
-    exit /b 1
+    echo Requesting Administrator privileges...
+    powershell -Command "Start-Process -FilePath '%%~f0' -Verb RunAs"
+    exit /b
 )
 
 set "SCRIPT_DIR=%%~dp0"
@@ -26,9 +18,6 @@ reg add "HKCR\cinemana-player" /v "URL Protocol" /t REG_SZ /d "" /f >nul 2>&1
 reg add "HKCR\cinemana-player\shell\open\command" /ve /t REG_SZ /d "wscript.exe \"%%VBS_PATH%%\" \"%%1\"" /f >nul 2>&1
 
 echo.
-echo ============================================
-echo  DONE! Protocol registered.
-echo  Path: %%VBS_PATH%%
-echo ============================================
+echo DONE! Protocol registered at: %%VBS_PATH%%
 echo.
 pause
