@@ -1,16 +1,12 @@
 Windows Registry Editor Version 5.00
 
-; NOTE: Do NOT use this file directly.
-; Run "register.bat" (or register.ps1) as Administrator instead.
-; It will automatically detect the correct path from its own location
-; using %~dp0 — so it works regardless of the folder name/location.
-;
-; This file is for reference only. If you edit manually, replace the path
-; below with the FULL path to open.vbs inside YOUR extension folder.
+; Run register.bat (auto-elevates to Admin) instead of this file.
+; It copies open.vbs to %ProgramData%\cinemana\open.vbs (fixed location)
+; and registers that path - survives folder deletion/rename.
 
 [HKEY_CLASSES_ROOT\cinemana-player]
 @="URL:cinemana-player Protocol"
 "URL Protocol"=""
 
 [HKEY_CLASSES_ROOT\cinemana-player\shell\open\command]
-@="wscript.exe \"C:\\extension\\cinemana-potplayer-1.13.0\\setup\\open.vbs\" \"%1\""
+@="wscript.exe \"%ProgramData%\\cinemana\\open.vbs\" \"%1\""
