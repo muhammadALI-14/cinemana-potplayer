@@ -1,14 +1,13 @@
 @echo off
 setlocal
 set "SCRIPT_DIR=%~dp0"
-set "DEST_DIR=%ProgramData%\cinemana"
+:: مسار مطلق ثابت (لا نستخدم %ProgramData% لأنها تتفسّر نسبياً بعد رفع الصلاحيات)
+set "DEST_DIR=C:\ProgramData\cinemana"
 
-:: نسخ open.vbs إلى مكان ثابت حتى لو حُذف مجلد الإضافة لاحقاً
 if not exist "%DEST_DIR%" mkdir "%DEST_DIR%"
 copy /Y "%SCRIPT_DIR%open.vbs" "%DEST_DIR%\open.vbs" >nul
 set "VBS_PATH=%DEST_DIR%\open.vbs"
 
-:: رفع لـ Admin تلقائياً
 net session >nul 2>&1
 if not %errorlevel%==0 (
     echo Requesting Administrator...
@@ -22,6 +21,6 @@ reg add "HKCR\cinemana-player\shell\open\command" /ve /t REG_SZ /d "wscript.exe 
 
 echo.
 echo DONE! Protocol registered. Script at: %VBS_PATH%
-echo (Fixed location - survives folder deletion/rename)
+echo (Fixed absolute path - survives folder deletion/rename)
 echo.
 pause
