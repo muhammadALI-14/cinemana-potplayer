@@ -1,26 +1,30 @@
 @echo off
 setlocal
+:: نثبّت مسار السكربت فوراً (قبل رفع الصلاحيات)
 set "SCRIPT_DIR=%~dp0"
-:: مسار مطلق ثابت (لا نستخدم %ProgramData% لأنها تتفسّر نسبياً بعد رفع الصلاحيات)
-set "DEST_DIR=C:\ProgramData\cinemana"
+set "VBS_PATH=%SCRIPT_DIR%open.vbs"
 
-if not exist "%DEST_DIR%" mkdir "%DEST_DIR%"
-copy /Y "%SCRIPT_DIR%open.vbs" "%DEST_DIR%\open.vbs" >nul
-set "VBS_PATH=%DEST_DIR%\open.vbs"
-
+:: نرفع نفسنا لـ Admin مع تمرير المسار الصحيح (تفادياً لتغيّر %~dp0 بعد الرفع)
 net session >nul 2>&1
 if not %errorlevel%==0 (
     echo Requesting Administrator...
-    powershell -Command "Start-Process -FilePath '%~f0' -Verb RunAs"
+    powershell -Command "Start-Process -FilePath '%~f0' -ArgumentList '%VBS_PATH%' -Verb RunAs"
     exit /b
 )
 
-reg add "HKCR\cinemana-player" /ve /t REG_SZ /d "URL:cinemana-player Protocol" /f
-reg add "HKCR\cinemana-player" /v "URL Protocol" /t REG_SZ /d "" /f
-reg add "HKCR\cinemana-player\shell\open\command" /ve /t REG_SZ /d "wscript.exe \"%VBS_PATH%\" \"%%1\"" /f
+:: نحن بصلاحيات Admin — نستخدم المسار الممرّر إن وُجد
+if not "%~1"=="" set "VBS_PATH=%~1"
+if not exist "%VBS_PATH%" (
+    echo ERROR: open.vbs not found at %VBS_PATH%
+    pause & exit /b 1
+)
+
+reg add "HKCR\cinemana-player" /ve /t REG_SZ /d "URL:cinemana-player Protocol" /f >nul
+reg add "HKCR\cinemana-player" /v "URL Protocol" /t REG_SZ /d "" /f >nul
+reg add "HKCR\cinemana-player\shell\open\command" /ve /t REG_SZ /d "wscript.exe \"%VBS_PATH%\" \"%%1\"" /f >nul
 
 echo.
-echo DONE! Protocol registered. Script at: %VBS_PATH%
-echo (Fixed absolute path - survives folder deletion/rename)
+echo DONE! Protocol registered at: %VBS_PATH%
+echo (Path is inside the extension folder - survives rename, no external files)
 echo.
 pause
