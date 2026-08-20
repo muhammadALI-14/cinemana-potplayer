@@ -7,6 +7,7 @@ if (-not $isAdmin) {
     exit 1
 }
 
+# المسار يُكتشف تلقائياً من موقع هذا السكربت (يعمل بأي اسم/مكان مجلد)
 $scriptDir = Split-Path -Parent $MyInvocation.MyCommand.Path
 $helperPath = Join-Path $scriptDir "open.vbs"
 $helperReg = $helperPath -replace '\\','\\'
@@ -30,5 +31,6 @@ Remove-Item $tempReg -ErrorAction SilentlyContinue
 
 Write-Host ""
 Write-Host "Protocol registered successfully!" -ForegroundColor Green
+Write-Host "Path: $helperPath"
 Write-Host ""
 Read-Host "Press Enter to exit"
